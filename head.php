@@ -1,8 +1,6 @@
 
 
-<!-- Author Name: Sujan kafle.9865368602. 
-PHP, Laravel and Codeignitor Developer
--->
+
 <!DOCTYPE html>
 <html lang="en">
 

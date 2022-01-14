@@ -1,5 +1,5 @@
 
-<!-- Author Name: Sujan kafle. 
+<!-- Author Name: Newton Raj  kaphle. 
 PHP, Laravel and Codeignitor Developer
 -->
 <?php require_once('check_login.php');?>

@@ -1,7 +1,5 @@
 
-<!-- Author Name: Sujan kafle.9865368602.
-PHP, Laravel and Codeignitor Developer
--->
+
 <?php require_once('check_login.php');?>
 <?php include('head.php');?>
 <?php include('header.php');?>

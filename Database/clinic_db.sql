@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 28, 2020 at 12:43 PM
--- Server version: 5.6.47-cll-lve
--- PHP Version: 7.2.7
+-- Host: 127.0.0.1
+-- Generation Time: Jan 14, 2022 at 05:31 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.3.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -45,7 +44,7 @@ CREATE TABLE `admin` (
   `updated_on` date NOT NULL,
   `role_id` int(11) NOT NULL,
   `last_login` date NOT NULL,
-  `delete_status` int(11) NOT NULL DEFAULT '0'
+  `delete_status` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -53,7 +52,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `loginid`, `password`, `fname`, `lname`, `gender`, `dob`, `mobileno`, `addr`, `notes`, `image`, `created_on`, `updated_on`, `role_id`, `last_login`, `delete_status`) VALUES
-(1, 'admin', 'sujankafle14@gmail.com', 'aa7f019c326413d5b8bcad4314228bcd33ef557f5d81c7cc977f7728156f4357', 'sujan kafle', 'admin', 'Male', '2021-04-20', '9865390843', '<p>Maharashtra, Nepal</p>\r\n', '<p>admin panel</p>\r\n', 'profile.jpg', '2021-04-30', '2022-10-15', 1, '0000-00-00', 0);
+(1, 'admin', 'kaphlenerob@gmail.com', 'ffc5e558b8c73e7dfa74208684fd8a5c368cf40f67931def94fe16bbe1780cee', 'Newton Raj Kaphle', 'admin', 'Male', '2021-04-20', '9863459698', '<p>Maharashtra, Nepal</p>\r\n', '<p>admin panel</p>\r\n', 'profile.jpg', '2021-04-30', '2022-10-15', 1, '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
@@ -81,8 +80,8 @@ CREATE TABLE `appointment` (
 
 INSERT INTO `appointment` (`appointmentid`, `appointmenttype`, `patientid`, `roomid`, `departmentid`, `appointmentdate`, `appointmenttime`, `doctorid`, `status`, `app_reason`, `delete_status`) VALUES
 (1, '', 1, 0, 1, '2020-05-25', '12:00:00', 1, 'Approved', 'Reason of appointment', 0),
-(2, '', 1, 0, 2, '2020-05-27', '10:00:00', 1, 'Active', 'reason of appointment', 0),
-(3, '', 1, 0, 1, '2020-05-26', '11:11:00', 1, 'Inactive', 'reason', 0),
+(2, '', 1, 0, 2, '2020-05-27', '10:00:00', 1, 'Approved', 'reason of appointment', 0),
+(3, '', 1, 0, 1, '2020-05-26', '11:11:00', 1, 'Approved', 'reason', 0),
 (4, '', 1, 0, 2, '2020-05-29', '15:00:00', 1, 'Active', 'reason of appointment', 0);
 
 -- --------------------------------------------------------
@@ -167,7 +166,9 @@ CREATE TABLE `doctor` (
 --
 
 INSERT INTO `doctor` (`doctorid`, `doctorname`, `mobileno`, `departmentid`, `loginid`, `password`, `status`, `education`, `experience`, `consultancy_charge`, `delete_status`) VALUES
-(1, 'Dr. Akash Ahire', '9423979339', 1, 'akash@gmail.com', 'bbcff4db4d8057800d59a68224efd87e545fa1512dfc3ef68298283fbb3b6358', 'Active', 'MD', 3.0, 200.00, 0);
+(1, 'Dr. Akash Ahire', '9423979339', 1, 'akash@gmail.com', 'bbcff4db4d8057800d59a68224efd87e545fa1512dfc3ef68298283fbb3b6358', 'Active', 'MD', 3.0, 200.00, 1),
+(2, 'ram', '9812345678', 1, '12345', '86abb32d72a6612a716382b3c999a68b2664a31b1304cca6f22d5e8ff9420824', 'Active', '', 0.0, 300000.00, 0),
+(3, 'niraj', '9818796489', 1, 'niraj@gmail.com', '80dc9686bc003c4159f8f47a6502cbef99280c30349ce321b13651d922c2c735', 'Active', 'bca', 3.0, 150000.00, 0);
 
 -- --------------------------------------------------------
 
@@ -295,7 +296,8 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`patientid`, `patientname`, `admissiondate`, `admissiontime`, `address`, `mobileno`, `city`, `pincode`, `loginid`, `password`, `bloodgroup`, `gender`, `dob`, `status`, `delete_status`) VALUES
-(1, 'Atul Petkar', '2020-05-25', '11:00:00', 'nashik, maharashtra', '9423979339', 'nashik', '1234', 'atul@gmail.com', 'bbcff4db4d8057800d59a68224efd87e545fa1512dfc3ef68298283fbb3b6358', 'B+', 'Male', '1995-07-25', 'Active', 0);
+(1, 'Atul Petkar', '2020-05-25', '11:00:00', 'nashik, maharashtra', '9423979339', 'nashik', '1234', 'atul@gmail.com', 'bbcff4db4d8057800d59a68224efd87e545fa1512dfc3ef68298283fbb3b6358', 'B+', 'Male', '1995-07-25', 'Active', 0),
+(2, 'nischal', '2022-01-07', '02:22:00', 'bafal', '1234567890', 'ktm', '461', 'nischal@gmail.com', '80dc9686bc003c4159f8f47a6502cbef99280c30349ce321b13651d922c2c735', 'B+', 'Male', '1999-04-08', 'Active', 0);
 
 -- --------------------------------------------------------
 
@@ -603,7 +605,7 @@ CREATE TABLE `tbl_role` (
   `id` int(11) NOT NULL,
   `role_name` varchar(200) NOT NULL,
   `slug` varchar(500) NOT NULL,
-  `delete_status` int(11) NOT NULL DEFAULT '0'
+  `delete_status` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -627,7 +629,7 @@ CREATE TABLE `tbl_sms_config` (
   `sms_password` varchar(200) NOT NULL,
   `sms_senderid` varchar(200) NOT NULL,
   `created_at` date NOT NULL,
-  `delete_status` int(11) NOT NULL DEFAULT '0'
+  `delete_status` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -691,7 +693,7 @@ CREATE TABLE `user` (
   `patientname` varchar(50) NOT NULL,
   `mobileno` varchar(15) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `createddateandtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `createddateandtime` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -833,7 +835,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `doctorid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `doctorid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `doctor_timings`
@@ -857,7 +859,7 @@ ALTER TABLE `medicine`
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `patientid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `patientid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_email_config`

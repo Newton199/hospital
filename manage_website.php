@@ -1,8 +1,6 @@
 
 
-<!-- Author Name: Sujan kafle.9865368602. 
-PHP, Laravel and Codeignitor Developer
--->
+
 <?php require_once('check_login.php');?>
 <?php include('head.php');?>
 <?php include('header.php');?>
@@ -180,7 +178,7 @@ while($row=mysqli_fetch_array($query))
                                             <div class="row">
                                                 <label class="col-sm-3 control-label">Footer</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" value="<?php// echo $footer;?>"  name="footer" class="form-control">
+                                                    <input type="text" value="// echo $footer;?>"  name="footer" class="form-control">
                                                 </div>
                                             </div>
                                         </div> -->

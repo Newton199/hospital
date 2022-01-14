@@ -39,9 +39,9 @@
 }
     </style>
         <div class="social-icon-bar">
-  <a href="https://www.facebook.com/profile.php?id=100008610763525" class="facebook" target="_blank"><i class="fa fa-facebook"></i></a> 
-  <a href="https://wa.me/9865390843" class="twitter" target="_blank"><i class="fa fa-whatsapp"></i></a> 
+  <a href="#" class="facebook" target="_blank"><i class="fa fa-facebook"></i></a> 
+  <a href="#" class="twitter" target="_blank"><i class="fa fa-whatsapp"></i></a> 
   <a href="https://www.youtube.com" class="youtube" target="_blank"><i class="fa fa-youtube"></i></a> 
-    <a href="https://www.logicinfotech.rf.gd.com" class="website" target="_blank"><i class="fa fa-external-link"></i></a> 
+    <a href="#" class="website" target="_blank"><i class="fa fa-external-link"></i></a> 
 
 </div>

@@ -1,7 +1,5 @@
 
-<!-- Author Name: Sujan kafle.9865368602.
-PHP, Laravel and Codeignitor Developer
--->
+
 <?php include ('social_link.php');?> 
 <?php include('connect.php');?>
 <body>
