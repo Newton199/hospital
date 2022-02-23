@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 14, 2022 at 05:31 AM
+-- Generation Time: Feb 23, 2022 at 03:03 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.27
 
@@ -82,7 +82,9 @@ INSERT INTO `appointment` (`appointmentid`, `appointmenttype`, `patientid`, `roo
 (1, '', 1, 0, 1, '2020-05-25', '12:00:00', 1, 'Approved', 'Reason of appointment', 0),
 (2, '', 1, 0, 2, '2020-05-27', '10:00:00', 1, 'Approved', 'reason of appointment', 0),
 (3, '', 1, 0, 1, '2020-05-26', '11:11:00', 1, 'Approved', 'reason', 0),
-(4, '', 1, 0, 2, '2020-05-29', '15:00:00', 1, 'Active', 'reason of appointment', 0);
+(4, '', 1, 0, 2, '2020-05-29', '15:00:00', 1, 'Active', 'reason of appointment', 0),
+(5, '', 2, 0, 1, '2022-01-19', '21:19:00', 3, 'Approved', 'hhh', 0),
+(6, '', 2, 0, 2, '2022-02-24', '09:35:00', 2, 'Approved', 'jj', 0);
 
 -- --------------------------------------------------------
 
@@ -318,6 +320,13 @@ CREATE TABLE `payment` (
   `cvvno` int(5) NOT NULL,
   `expdate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`paymentid`, `patientid`, `appointmentid`, `paiddate`, `paidtime`, `paidamount`, `status`, `cardholder`, `cardnumber`, `cvvno`, `expdate`) VALUES
+(0, 1, 4, '0000-00-00', '00:00:00', 0.00, 'Active', '', 0, 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -823,7 +832,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `appointmentid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `appointmentid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `department`
