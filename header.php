@@ -68,7 +68,7 @@ while($row=mysqli_fetch_array($query))
 <div class="navbar-wrapper">
 <div class="navbar-logo">
 
-<a href="dashboard.php">
+<a href="index.php">
 
   <div class="text-center">
 <image class="profile-img" src="uploadImage/Logo/<?php echo $logo; ?>" style="width: 50%"></image>
@@ -111,8 +111,8 @@ while($row=mysqli_fetch_array($query))
 <div class="media">
 <img class="d-flex align-self-center img-radius" src="files/assets/images/avatar-4.jpg" alt="Generic placeholder image">
 <div class="media-body">
-<h5 class="notification-user">Sujan Kafle +9779865368602</h5>
-<p class="notification-msg">CI, Laravel PHP Developer</p>
+<h5 class="notification-user">Newton  Raj Kaphle +9779863459698</h5>
+<p class="notification-msg">PHP Developer</p>
 <span class="notification-time">30 minutes ago</span>
 </div>
 </div>
@@ -124,7 +124,7 @@ while($row=mysqli_fetch_array($query))
 </li> 
 
 
-<li class="header-notification" onclick="window.open('https://www.facebook.com/sujankafle','_newtab');">
+<li class="header-notification" onclick="window.open('https://www.facebook.com/nerobkaphle','_newtab');">
 <div class="dropdown-primary dropdown">
 <div class="displayChatbox dropdown-toggle" data-toggle="dropdown">
 <i class="feather icon-message-square"></i>

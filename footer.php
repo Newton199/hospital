@@ -1,5 +1,5 @@
 
-            <footer class="footer text-center" ><marquee behavior="alternate">© 2021 All Rights are Reserved <a href="kaphlenerob@gmail.com"  target="_blank" style="color: yellow;"><?php echo "Developed by devloper Newton Raj Kaphle : +9779863459698";?>
+            <footer class="footer text-center" ><marquee behavior="alternate">© 2022 All Rights are Reserved <a href="kaphlenerob@gmail.com"  target="_blank" style="color: yellow;"><?php echo "Developed by devloper Newton Raj Kaphle : +9779863459698";?>
            
 </a></marquee></footer> 
 

@@ -1,3 +1,5 @@
+<!--
+
 <style>
         .social-icon-bar {
     z-index: 1111111;
@@ -45,3 +47,5 @@
     <a href="#" class="website" target="_blank"><i class="fa fa-external-link"></i></a> 
 
 </div>
+
+-->

@@ -14,7 +14,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="#">
 <meta name="keywords" content="Admin , Responsive">
-<meta name="author" content="Sujan kafle.9865368602.">
+<meta name="author" content="Newton.9863459698.">
 
 
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
