@@ -4,6 +4,7 @@
 <?php include('header.php');?>
 <?php include('sidebar.php');?>
 <?php include('connect.php');
+
 if(isset($_POST['submit']))
 {
   if(isset($_GET['editid']))
@@ -27,6 +28,8 @@ if(isset($_POST['submit']))
         </div>
 <?php
       //echo "<script>alert('prescription record updated successfully...');</script>";
+error_reporting(0);
+
     }
     else
     {
@@ -57,8 +60,8 @@ if(isset($_POST['submit']))
           </div>
         </div>
 <?php
-      //echo "<script>alert('prescription record inserted successfully...');</script>";
-      //echo "<script>window.location='prescriptionrecord.php?prescriptionid=$_GET[prescriptionid]&patientid=$_GET[patientid]&appid=$_GET[appid]';</script>";
+      echo "<script>alert('prescription record inserted successfully...');</script>";
+      echo "<script>window.location='prescriptionrecord.php?prescriptionid=$_GET[prescriptionid]&patientid=$_GET[patientid]&appid=$_GET[appid]';</script>";
     }
     else
     {
@@ -144,7 +147,8 @@ if(isset($_GET['id']))
 </thead>
 <tbody>
 <?php
-    $sql ="SELECT * FROM prescription WHERE prescriptionid='$_GET[prescriptionid]'";
+    $med_idey=$_GET['prescription_id'];
+    $sql ="SELECT * FROM prescription WHERE prescription_id  = '$med_idey'";
     $qsql = mysqli_query($conn,$sql);
     while($rs = mysqli_fetch_array($qsql))
     {
@@ -180,7 +184,7 @@ if(isset($_GET['id']))
       if(!isset($_SESSION['patientid']))
       {
       ?>  
-<form method="post" action="" name="frmpresrecord" onSubmit="return validateform()"> 
+<form method="GET" action="" name="frmpresrecord" onSubmit="return validateform()"> 
   <input type="hidden" name="prescriptionid" value="<?php echo $_GET[prescriptionid]; ?>"  />
     <div class="table-responsive dt-responsive">
     <table id="" class="table table-striped table-bordered nowrap">
@@ -192,11 +196,12 @@ if(isset($_GET['id']))
       <select class="form-control show-tick" name="medicineid" id="medicineid" onchange="loadmedicine(this.value)">
       <option value="">Select Medicine</option>
       <?php
-    $sqlmedicine ="SELECT * FROM medicine WHERE status='Active'";
+    $sqlmedicine ="SELECT * FROM `medicine` WHERE `status` LIKE 'Active'";
     $qsqlmedicine = mysqli_query($conn,$sqlmedicine);
-    while($rsmedicine = mysqli_fetch_array($qsqlmedicine))
+    while($rsmedicine = mysqli_fetch_assoc($qsqlmedicine))
     {
       echo "<option value='$rsmedicine[medicineid]'>$rsmedicine[medicinename] ( TK. $rsmedicine[medicinecost] )</option>";
+      $med_id=$rsmedicine[medicineid];
     }
     ?>
       </select>
@@ -235,7 +240,9 @@ if(isset($_GET['id']))
           </select></td>
         </tr>
         <tr>
-          <td colspan="2" align="center"><input class="btn btn-default" type="submit" name="submit" id="submit" value="Submit" /> </td>
+          <td colspan="2" align="center"> <a href="prescriptionrecord.php?prescription_id='.$med_id.'"><input class="btn btn-default" type="submit" name="submit" id="submit" value="Submit" /></a>  </td>
+
+          <!--  <a href="OP15_deletes.php?deleteid=' . $id . '"><button id="del_btn">Delete</button></a></td> -->
         </tr>
       </tbody>
     </table>
@@ -292,7 +299,7 @@ if(isset($_GET['id']))
         </tr>
          <?php
      $gtotal=0;
-    $sql ="SELECT * FROM prescription_records LEFT JOIN medicine on prescription_records.medicine_name=medicine.medicineid WHERE prescription_id='$_GET[prescriptionid]'";
+    $sql ="SELECT * FROM prescription_records LEFT JOIN medicine on prescription_records.medicine_name=medicine.medicineid WHERE prescription_id='$_GET[prescription_id]'";
     $qsql = mysqli_query($conn,$sql);
     while($rs = mysqli_fetch_array($qsql))
     {

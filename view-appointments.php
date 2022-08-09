@@ -18,7 +18,7 @@ if(isset($_GET['id']))
         <h3 class="popup__content__title">
           Success 
         </h3>
-        <p>Appoinrment record deleted successfully</p>
+        <p>Appointment record deleted successfully</p>
         <p>
          <!--  <a href="index.php"><button class="button button--success" data-for="js_success-popup"></button></a> -->
          <?php echo "<script>setTimeout(\"location.href = 'view-appointments.php';\",1500);</script>"; ?>
@@ -130,8 +130,10 @@ if(isset($_GET['delid']))
     <th><div align="center">Action</div></th>
 </tr>
 </thead>
+
 <tbody>
   <?php
+  error_reporting(0);
     $sql ="SELECT * FROM appointment WHERE (status !='') and delete_status='0'";
     if(isset($_SESSION['patientid']))
     {
@@ -154,7 +156,8 @@ if(isset($_GET['delid']))
       $rsdoc = mysqli_fetch_array($qsqldoc);
         echo "<tr>
           <td>&nbsp;$rspat[patientname]<br>&nbsp;$rspat[mobileno]</td>     
-       <td>&nbsp;" . date("d-M-Y",strtotime($rs[appointmentdate])) . " &nbsp; " . date("H:i A",strtotime($rs[appointmenttime])) . "</td> 
+       <td>&nbsp;" . date("D-M-Y",strtotime($rs[appointmentdate])) . 
+       " &nbsp; " . date("H:i A",strtotime($rs[appointmenttime])) . "</td> 
         <td>&nbsp;$rsdept[departmentname]</td>
          <td>&nbsp;$rsdoc[doctorname]</td>
           <td>&nbsp;$rs[app_reason]</td>

@@ -175,8 +175,11 @@ if(isset($_GET['id']))
           {
             echo "<a href='patientreport.php?patientid=$rs[patientid]&appointmentid=$rs[appointmentid]' class='btn btn-xs btn-primary'>View Report</a>";
           }
+          echo "<a href='treatment.php?patientid=$rs[patientid]&appointmentid=$rs[appointmentid]' class='btn btn-xs btn-primary'>Treatment</a>";
+          }
+
           echo "</td></tr>";
-        }
+        
         ?>
 </tbody>
 <tfoot>

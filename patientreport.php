@@ -245,7 +245,8 @@ if (isset($_GET['id'])) { ?>
                             <th>Treatment cost</th>
                           </tr>
                           <?php
-                          $sql = "SELECT * FROM treatment_records LEFT JOIN treatment ON treatment_records.treatmentid=treatment.treatmentid WHERE treatment_records.patientid='$_GET[patientid]' AND treatment_records.appointmentid='$_GET[appointmentid]'";
+                 $sql = "SELECT * FROM treatment_records LEFT JOIN treatment ON treatment_records.treatmentid=treatment.treatmentid WHERE treatment_records.patientid='$_GET[patientid]' AND treatment_records.appointmentid='$_GET[appointmentid]'";
+                 
                           $qsql = mysqli_query($conn, $sql);
                           while ($rs = mysqli_fetch_array($qsql)) {
                             $sqlpat = "SELECT * FROM patient WHERE patientid='$rs[patientid]'";
@@ -262,7 +263,7 @@ if (isset($_GET['id'])) { ?>
 
                             echo "<tr>
           <td>&nbsp;$rstreatment[treatmenttype]</td>
-          </td><td>&nbsp;" . date("d-m-Y", strtotime($rs['treatment_date'])) . "  &nbsp;" . date("h:i A", strtotime($rs['treatment_time'])) . "</td>
+          <td>&nbsp;" . date("d-m-Y", strtotime($rs['treatment_date'])) . "  &nbsp;" . date("h:i A", strtotime($rs['treatment_time'])) . "</td>
           <td>&nbsp;$rsdoc[doctorname]</td>
           <td>&nbsp;$rs[treatment_description]";
                             if (file_exists("treatmentfiles/$rs[uploads]")) {
