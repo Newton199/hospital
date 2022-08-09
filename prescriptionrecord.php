@@ -9,7 +9,17 @@ if(isset($_POST['submit']))
 {
   if(isset($_GET['editid']))
   {
-      $sql ="UPDATE prescription_records SET prescription_id='$_POST[prescriptionid]',medicine_name='$_POST[medicine]',cost='$_POST[cost]',unit='$_POST[unit]',dosage='$_POST[select2]',status=' $_POST[select]' WHERE prescription_record_id='$_GET[editid]'";
+    $prescriptionid = $_POST['prescriptionid'];
+    $medicine_name =$_POST['medicine'];
+    $cost =$_POST['cost'];
+    $unit =$_POST['unit'];
+    $dosage =$_POST['select2'];
+    $status =$_POST['select'];
+    $prescription_record_id=$_GET['editid'];
+
+      $sql ="UPDATE prescription_records SET prescription_id='$prescriptionid',
+      medicine_name='$medicine_name',cost='$cost',unit='$unit',
+      dosage='$dosage',status=' $status' WHERE prescription_record_id=' $prescription_record_id'";
     if($qsql = mysqli_query($conn,$sql))
     {
 ?>
@@ -38,12 +48,12 @@ error_reporting(0);
   }
   else
   {
-    $sql ="INSERT INTO prescription_records(prescription_id,medicine_name,cost,unit,dosage,status) values('$_POST[prescriptionid]','$_POST[medicineid]','$_POST[cost]','$_POST[unit]','$_POST[select2]','Active')";
+    $sql ="INSERT INTO prescription_records(prescription_id,medicine_name,cost,unit,dosage,status) values('$prescriptionid','$medicinename','$cost','$unit','$select2','Active')";
     if($qsql = mysqli_query($conn,$sql))
     { 
-      $presamt=$_POST[cost]*$_POST[unit];
+      $presamt=$cost*$unit;
       $billtype = "Prescription update";
-      $prescriptionid= $_POST[prescriptionid];
+      $prescriptionid= $prescriptionid;
       //include("insertbillingrecord.php");
 ?>  
         <div class="popup popup--icon -success js_success-popup popup--visible">
@@ -54,14 +64,21 @@ error_reporting(0);
             </h3>
             <p>Prescription record Inserteed successfully.</p>
             <p>
-             <!--  <a href="index.php"><button class="button button--success" data-for="js_success-popup"></button></a> -->
-             <?php echo "<script>setTimeout(\"location.href = 'prescriptionrecord.php?prescriptionid=$_GET[prescriptionid]&patientid=$_GET[patientid]&appid=$_GET[appid]';\",1500);</script>"; ?>
+            
+            <!--  <a href="index.php"><button class="button button--success" data-for="js_success-popup"></button></a> -->
+            
+            <?php 
+            $prescriptionid = $_GET['prescriptionid'];
+            $patientid = $_GET['patientid'];
+            $appid = $_GET['appid'];
+            
+            echo "<script>setTimeout(\"location.href = 'prescriptionrecord.php?prescriptionid=$prescriptionid&patientid=$patientid&appid=$_GET[appid]';\",1500);</script>"; ?>
             </p>
           </div>
         </div>
 <?php
       echo "<script>alert('prescription record inserted successfully...');</script>";
-      echo "<script>window.location='prescriptionrecord.php?prescriptionid=$_GET[prescriptionid]&patientid=$_GET[patientid]&appid=$_GET[appid]';</script>";
+      echo "<script>window.location='prescriptionrecord.php?prescriptionid=$prescriptionid&patientid=$patientid&appid=$appid;</script>";
     }
     else
     {
@@ -71,7 +88,7 @@ error_reporting(0);
 }
 if(isset($_GET['editid']))
 {
-  $sql="SELECT * FROM prescription_records WHERE prescription_record_id='$_GET[editid]' ";
+  $sql="SELECT * FROM prescription_records WHERE prescription_record_id='$prescription_record_id' ";
   $qsql = mysqli_query($conn,$sql);
   $rsedit = mysqli_fetch_array($qsql);
   
@@ -147,17 +164,20 @@ if(isset($_GET['id']))
 </thead>
 <tbody>
 <?php
-    $med_idey=$_GET['prescription_id'];
-    $sql ="SELECT * FROM prescription WHERE prescription_id  = '$med_idey'";
+    
+    if(isset($_GET['prescription_id'])){
+      $med_idey=$_GET['prescription_id'];
+      $sql ="SELECT * FROM prescription WHERE prescription_id  = '$med_idey'";
     $qsql = mysqli_query($conn,$sql);
     while($rs = mysqli_fetch_array($qsql))
     {
-      $sqlpatient = "SELECT * FROM patient WHERE patientid='$rs[patientid]'";
+      $patientid = $res['patientid'];
+      $sqlpatient = "SELECT * FROM patient WHERE patientid='$patientid'";
       $qsqlpatient = mysqli_query($conn,$sqlpatient);
       $rspatient = mysqli_fetch_array($qsqlpatient);
       
-      
-    $sqldoctor = "SELECT * FROM doctor WHERE doctorid='$rs[doctorid]'";
+      $doctorid = $_GET['doctorid'];
+    $sqldoctor = "SELECT * FROM doctor WHERE doctorid=' $doctorid '";
       $qsqldoctor = mysqli_query($conn,$sqldoctor);
       $rsdoctor = mysqli_fetch_array($qsqldoctor);
       
@@ -169,6 +189,8 @@ if(isset($_GET['id']))
     
         </tr>";
     }
+    }
+    
     ?>
 </tbody>
 
@@ -185,7 +207,7 @@ if(isset($_GET['id']))
       {
       ?>  
 <form method="GET" action="" name="frmpresrecord" onSubmit="return validateform()"> 
-  <input type="hidden" name="prescriptionid" value="<?php echo $_GET[prescriptionid]; ?>"  />
+  <input type="hidden" name="prescriptionid" value="<?php echo $prescription_id; ?>"  />
     <div class="table-responsive dt-responsive">
     <table id="" class="table table-striped table-bordered nowrap">
       <tbody>
@@ -200,24 +222,27 @@ if(isset($_GET['id']))
     $qsqlmedicine = mysqli_query($conn,$sqlmedicine);
     while($rsmedicine = mysqli_fetch_assoc($qsqlmedicine))
     {
-      echo "<option value='$rsmedicine[medicineid]'>$rsmedicine[medicinename] ( TK. $rsmedicine[medicinecost] )</option>";
-      $med_id=$rsmedicine[medicineid];
+      echo "<option value='$medicine[medicineid]'>$medicine[medicinename] ( TK. $medicine[medicinecost] )</option>";
+      $med_id=$medicine['medicineid'];
     }
     ?>
+
       </select>
       </td>
         </tr>
         <tr>
           <td>Cost</td>
-          <td><input class="form-control" type="text" name="cost" id="cost" value="<?php echo $rsmedicine['medicinecost']; ?>" readonly style="background-color:pink;" /></td>
+          <td><input class="form-control" type="text" name="cost" id="cost" value="<?php echo $medicine['medicinecost']; ?>" readonly style="background-color:pink;" /></td>
         </tr>
         <tr>
           <td>Unit</td>
-          <td><input class="form-control" type="number" min="1" name="unit" id="unit" value="<?php echo $rsedit['unit']; ?>" onkeyup="calctotalcost(cost.value,this.value)" onchange="" /></td>
+          <td><input class="form-control" type="number" min="1" name="unit" id="unit" value="<?php echo $edit['unit']; 
+          ?>" onkeyup="calctotalcost(cost.value,this.value)" onchange="" /></td>
         </tr>
         <tr>
           <td>Total Cost</td>
-          <td><input class="form-control" type="text" name="totcost" id="totcost" value="<?php if(isset($_GET['editid'])) { echo $rsedit['cost']; } ?>" readonly style="background-color:pink;" /></td>
+          <td><input class="form-control" type="text" name="totcost" id="totcost" value="<?php if(isset( $prescription_record_id)) 
+          { echo $rsedit['cost']; } ?>" readonly style="background-color:pink;" /></td>
         </tr>
         <tr>
           <td>Dosage</td>
@@ -240,7 +265,9 @@ if(isset($_GET['id']))
           </select></td>
         </tr>
         <tr>
-          <td colspan="2" align="center"> <a href="prescriptionrecord.php?prescription_id='.$med_id.'"><input class="btn btn-default" type="submit" name="submit" id="submit" value="Submit" /></a>  </td>
+          <td colspan="2" align="center"> <a href="prescriptionrecord.php?
+          prescription_id=<?php echo  $med_id;?>">
+          <input class="btn btn-default" type="submit" name="submit" id="submit" value="Submit" /></a>  </td>
 
           <!--  <a href="OP15_deletes.php?deleteid=' . $id . '"><button id="del_btn">Delete</button></a></td> -->
         </tr>
@@ -299,7 +326,9 @@ if(isset($_GET['id']))
         </tr>
          <?php
      $gtotal=0;
-    $sql ="SELECT * FROM prescription_records LEFT JOIN medicine on prescription_records.medicine_name=medicine.medicineid WHERE prescription_id='$_GET[prescription_id]'";
+    
+    $sql ="SELECT * FROM prescription_records LEFT JOIN medicine on 
+    prescription_records.medicine_name=medicine.medicineid WHERE prescription_id='$prescription_id'";
     $qsql = mysqli_query($conn,$sql);
     while($rs = mysqli_fetch_array($qsql))
     {
@@ -311,7 +340,7 @@ if(isset($_GET['id']))
        <td  align='right'>TK." . $rs['cost'] * $rs['unit'] . "</td>";
       if(!isset($_SESSION['patientid']))
       {
-       echo " <td>&nbsp; <a href='prescriptionrecord.php?delid=$rs[prescription_record_id]&prescriptionid=$_GET[prescriptionid]'>Delete</a> </td>"; 
+       echo " <td>&nbsp; <a href='prescriptionrecord.php?delid=$rs[prescription_record_id]&prescriptionid=$prescriptionid'>Delete</a> </td>"; 
       }
     echo "</tr>";
     $gtotal = $gtotal+($rs['cost'] * $rs['unit']);
