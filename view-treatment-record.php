@@ -106,6 +106,7 @@ if(isset($_GET['delid']))
 </thead>
 <tbody>
   <?php
+  
     $sql ="SELECT * FROM treatment_records where status='Active'";
     if(isset($_SESSION['patientid']))
     {

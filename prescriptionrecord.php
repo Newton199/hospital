@@ -207,7 +207,7 @@ if(isset($_GET['id']))
       {
       ?>  
 <form method="GET" action="" name="frmpresrecord" onSubmit="return validateform()"> 
-  <input type="hidden" name="prescriptionid" value="<?php echo $prescription_id; ?>"  />
+  <input type="hidden" name="prescriptionid" value="<?php echo $_GET['prescription_id']; ?>"  />
     <div class="table-responsive dt-responsive">
     <table id="" class="table table-striped table-bordered nowrap">
       <tbody>
@@ -222,8 +222,8 @@ if(isset($_GET['id']))
     $qsqlmedicine = mysqli_query($conn,$sqlmedicine);
     while($rsmedicine = mysqli_fetch_assoc($qsqlmedicine))
     {
-      echo "<option value='$medicine[medicineid]'>$medicine[medicinename] ( TK. $medicine[medicinecost] )</option>";
-      $med_id=$medicine['medicineid'];
+      echo "<option value='$rsmedicine[medicineid]'>$rsmedicine[medicinename] ( TK. $rsmedicine[medicinecost] )</option>";
+      $med_id=$rsmedicine['medicineid'];
     }
     ?>
 
@@ -232,17 +232,15 @@ if(isset($_GET['id']))
         </tr>
         <tr>
           <td>Cost</td>
-          <td><input class="form-control" type="text" name="cost" id="cost" value="<?php echo $medicine['medicinecost']; ?>" readonly style="background-color:pink;" /></td>
+          <td><input class="form-control" type="text" name="cost" id="cost" value="<?php echo $rsmedicine['medicinecost']; ?>" readonly style="background-color:pink;" /></td>
         </tr>
         <tr>
           <td>Unit</td>
-          <td><input class="form-control" type="number" min="1" name="unit" id="unit" value="<?php echo $edit['unit']; 
-          ?>" onkeyup="calctotalcost(cost.value,this.value)" onchange="" /></td>
+          <td><input class="form-control" type="number" min="1" name="unit" id="unit" value="<?php echo $rsedit['unit']; ?>" onkeyup="calctotalcost(cost.value,this.value)" onchange="" /></td>
         </tr>
         <tr>
           <td>Total Cost</td>
-          <td><input class="form-control" type="text" name="totcost" id="totcost" value="<?php if(isset( $prescription_record_id)) 
-          { echo $rsedit['cost']; } ?>" readonly style="background-color:pink;" /></td>
+          <td><input class="form-control" type="text" name="totcost" id="totcost" value="<?php if(isset($_GET['editid'])) { echo $rsedit['cost']; } ?>" readonly style="background-color:pink;" /></td>
         </tr>
         <tr>
           <td>Dosage</td>
@@ -326,18 +324,18 @@ if(isset($_GET['id']))
         </tr>
          <?php
      $gtotal=0;
-    
+     $prescription_id = (isset($_GET['prescription_id']) ? $_GET['prescription_id'] : '');
     $sql ="SELECT * FROM prescription_records LEFT JOIN medicine on 
     prescription_records.medicine_name=medicine.medicineid WHERE prescription_id='$prescription_id'";
     $qsql = mysqli_query($conn,$sql);
     while($rs = mysqli_fetch_array($qsql))
     {
         echo "<tr>
-          <td>&nbsp;$rs[medicinename]</td>
-        <td>&nbsp;$rs[dosage]</td>
-          <td>&nbsp;₹$rs[cost]</td>
-       <td>&nbsp;$rs[unit]</td>
-       <td  align='right'>TK." . $rs['cost'] * $rs['unit'] . "</td>";
+          <td>&nbsp;$medicinename</td>
+        <td>&nbsp;$dosage</td>
+          <td>&nbsp;₹$cost</td>
+       <td>&nbsp;$unit</td>
+       <td  align='right'>TK." . $cost * $unit . "</td>";
       if(!isset($_SESSION['patientid']))
       {
        echo " <td>&nbsp; <a href='prescriptionrecord.php?delid=$rs[prescription_record_id]&prescriptionid=$prescriptionid'>Delete</a> </td>"; 

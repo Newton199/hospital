@@ -108,9 +108,9 @@ if(isset($_GET['delid']))
 
 <div class="page-body">
 
-
     <?php
-      $sql ="SELECT * FROM prescription where patientid='$_SESSION[patientid]'";
+    $patientid = (isset($_SESSION['patientid']) ? $_SESSION['patientid'] : '');
+      $sql ="SELECT * FROM prescription where patientid='$patientid'";
       $qsql = mysqli_query($conn,$sql);
       while($rs = mysqli_fetch_array($qsql))
       {
@@ -121,7 +121,9 @@ if(isset($_GET['delid']))
         $sqldoctor = "SELECT * FROM doctor WHERE doctorid='$rs[doctorid]'";
         $qsqldoctor = mysqli_query($conn,$sqldoctor);
         $rsdoctor = mysqli_fetch_array($qsqldoctor);
+      }
       ?>
+
 <div class="card">
 <div class="card-header">
 <!-- <h5>DOM/Jquery</h5>
@@ -140,8 +142,9 @@ if(isset($_GET['delid']))
   </tr>
 
 </thead>
-<tbody>  
-  <?php
+<?php if ($rs) { ?>
+<tbody >  
+  <?php 
     echo "<tr>
     <td>&nbsp;$rsdoctor[doctorname]</td>
     <td>&nbsp;$rspatient[patientname]</td>
@@ -151,6 +154,7 @@ if(isset($_GET['delid']))
     </tr>";
   ?>
 </tbody>
+<?php } ?>
 <tfoot>
   <tr>
     <th>Doctor</th>
@@ -202,7 +206,7 @@ if(isset($_GET['delid']))
 <input type="submit" class="btn btn-lg" name="print" id="print" value="Print" onclick="myFunction()"/>
 </div>
 </div>
-<?php } ?>
+<?php   ?>
 
 
 </div>
