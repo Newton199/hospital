@@ -7,7 +7,9 @@ if(isset($_POST['btn_submit']))
 {
     if(isset($_GET['editid']))
     {
-        $sql ="UPDATE treatment_records SET appointmentid='$_POST[appointmentid]',patientid='$_POST[patientid]',treatment_discription='$_POST[treatment_discription]',uploads='$_POST[uploads]',treatment_date='$_POST[treatment_date]',treatment_time='$_POST[treatment_time]',status='$_POST[status]' WHERE treatmentid='$_GET[editid]'";
+        $patientId = $_POST['patientid'];
+        $sql ="UPDATE treatment_records SET appointmentid='$_POST[appointmentid]',
+        patientid='$_POST[patientid]',doctorid='$_POST[doctorid]',treatment_discription='$_POST[treatment_discription]',treatment_date='$_POST[treatment_date]',treatment_time='$_POST[treatment_time]',status='$_POST[status]' WHERE treatmentid='$_GET[editid]'";
         if($qsql = mysqli_query($conn,$sql))
         {
 ?>
@@ -20,7 +22,7 @@ if(isset($_POST['btn_submit']))
                 <p>Treatment record updated successfully</p>
                 <p>
                  <!--  <a href="index.php"><button class="button button--success" data-for="js_success-popup"></button></a> -->
-                 <?php echo "<script>setTimeout(\"location.href = 'view-treatment.php';\",1500);</script>"; ?>
+                 <?php echo "<script>setTimeout(\"location.href = 'view-treatment.php?patient_id=$patientId';\",1500);</script>"; ?>
                 </p>
               </div>
             </div>
@@ -35,7 +37,11 @@ if(isset($_POST['btn_submit']))
     }
     else
     {
-        $sql ="INSERT INTO treatment_records(appointmentid,patientid,treatment_description,uploads, treatment_date, treatment_time,status) values('$_POST[appointmentid]','$_POST[patientid]', '$_POST[treatment_description]','$_POST[uploads]','$_POST[treatment_date]','$_POST[treatment_time]','$_POST[status]')";
+        $patientId = $_POST['patientid'];
+        $sql ="INSERT INTO treatment_records(appointmentid,patientid,doctorid,treatment_description,
+        treatment_date, treatment_time,status) values('$_POST[appointmentid]','$_POST[patientid]','$_POST[doctorid]',
+        '$_POST[treatment_description]','$_POST[treatment_date]','$_POST[treatment_time]',
+        '$_POST[status]')";
         if($qsql = mysqli_query($conn,$sql))
         {
 ?>
@@ -48,7 +54,7 @@ if(isset($_POST['btn_submit']))
                 <p>Treatment record inserted successfully.</p>
                 <p>
                  <!--  <a href="index.php"><button class="button button--success" data-for="js_success-popup"></button></a> -->
-                 <?php echo "<script>setTimeout(\"location.href = 'view-treatment-record.php';\",1500);</script>"; ?>
+                 <?php echo "<script>setTimeout(\"location.href = 'view-treatment-record.php?patient_id=$patientId';\",1500);</script>"; ?>
                 </p>
               </div>
             </div>
@@ -135,7 +141,14 @@ if(isset($_GET['editid']))
             <span class="messages"></span>
         </div>
     </div>
-
+<div class="form-group row">
+        <label class="col-sm-2 col-form-label">Doctor ID</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" name="doctorid" id="doctorid"
+                                    value="<?php if(isset($_GET['editid'])) { echo $rsedit['doctorid']; } ?>">
+            <span class="messages"></span>
+        </div>
+    </div>
 <div class="form-group row">
         <label class="col-sm-2 col-form-label">Treatment Description</label>
         <div class="col-sm-8">
@@ -146,14 +159,7 @@ if(isset($_GET['editid']))
     </div>
 
     
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Uploads</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" name="Uploads" id="uploads"
-                                    value="<?php if(isset($_GET['editid'])) { echo $rsedit['uploads']; } ?>">
-            <span class="messages"></span>
-        </div>
-    </div>
+   
 
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Treatment Date</label>

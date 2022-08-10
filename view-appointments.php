@@ -156,8 +156,8 @@ if(isset($_GET['delid']))
       $rsdoc = mysqli_fetch_array($qsqldoc);
         echo "<tr>
           <td>&nbsp;$rspat[patientname]<br>&nbsp;$rspat[mobileno]</td>     
-       <td>&nbsp;" . date("D-M-Y",strtotime($rs[appointmentdate])) . 
-       " &nbsp; " . date("H:i A",strtotime($rs[appointmenttime])) . "</td> 
+       <td>&nbsp;" . date("D-M-Y",strtotime($rs['appointmentdate'])) . 
+       " &nbsp; " . date("H:i A",strtotime($rs['appointmenttime'])) . "</td> 
         <td>&nbsp;$rsdept[departmentname]</td>
          <td>&nbsp;$rsdoc[doctorname]</td>
           <td>&nbsp;$rs[app_reason]</td>

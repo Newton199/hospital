@@ -225,11 +225,11 @@
         <span class="pcoded-mtext">Service</span>
     </a>
     <ul class="pcoded-submenu">
-        <li class="">
+        <!-- <li class="">
             <a href="view-treatment-record.php">
                 <span class="pcoded-mtext">View Treatment Records </span>
             </a>
-        </li>
+        </li> -->
 
         <li class="">
             <a href="view-treatment.php">

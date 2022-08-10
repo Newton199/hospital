@@ -104,60 +104,46 @@ if(isset($_GET['delid']))
     <th width="43"  scope="col">Treatment time</th>
 </tr>
 </thead>
-<tbody>
+ <tbody>
   <?php
   
-    $sql ="SELECT * FROM treatment_records where status='Active'";
-    if(isset($_SESSION['patientid']))
-    {
-      $sql = $sql . " AND patientid='$_SESSION[patientid]'"; 
-    }
-    if(isset($_SESSION['doctorid']))
-    {
-      $sql = $sql . " AND doctorid='$_SESSION[doctorid]'";
-    }
-    $qsql = mysqli_query($conn,$sql);
-    while($rs = mysqli_fetch_array($qsql))
-    {
-      $sqlpat = "SELECT * FROM patient WHERE patientid='$rs[patientid]'";
-      $qsqlpat = mysqli_query($conn,$sqlpat);
-      $rspat = mysqli_fetch_array($qsqlpat);
-      
-      $sqldoc= "SELECT * FROM doctor WHERE doctorid='$rs[doctorid]'";
-      $qsqldoc = mysqli_query($conn,$sqldoc);
-      $rsdoc = mysqli_fetch_array($qsqldoc);
-      
-      $sqltreatment= "SELECT * FROM treatment WHERE treatmentid='$rs[treatmentid]'";
-      $qsqltreatment = mysqli_query($conn,$sqltreatment);
-      $rstreatment = mysqli_fetch_array($qsqltreatment);
-      
+    $patientId = $_GET['patient_id'];
+    $sql ="SELECT * FROM `treatment_records` tr
+    join patient p on p.patientid = tr.patientid 
+    left join treatment t on t.treatmentid = tr.treatmentid
+    left join doctor d on d.doctorid = tr.doctorid
+    where tr.patientid = $patientId";
+    $result = mysqli_query($conn, $sql);
+    
+    if(mysqli_num_rows($result) > 0) {
+      while($row = mysqli_fetch_array($result)){
         echo "<tr>
-          <td>&nbsp;$rstreatment[treatmenttype]</td>
-       <td>&nbsp;$rspat[patientname]</td>
-        <td>&nbsp;$rsdoc[doctorname]</td>
-      <td>&nbsp;$rs[treatment_description]</td>
-       <td>&nbsp;$rs[treatment_date]</td>
-        <td>&nbsp;$rs[treatment_time]</td>";  
+
+        <td>&nbsp;$row[treatmenttype]</td>
+       <td>&nbsp;$row[patientname]</td>
+        <td>&nbsp;$row[doctorname]</td>
+      <td>&nbsp;$row[treatment_description]</td>
+       <td>&nbsp;$row[treatment_date]</td>
+        <td>&nbsp;$row[treatment_time]</td>";  
   
        echo " </tr>";
-    }
-    ?>
-</tbody>
-<tfoot>
-<tr>
-    <th>Doctor Name</th>
-    <th>Description</th>
-    <th>Status</th>
+      }
+    
+      
+       
+    } ?>
+    </tbody>
+    
     <?php
       if(isset($_SESSION['adminid']))
       {
         ?>
-        <td><strong>Action</strong></td>
+      
         <?php
       }
     ?>
 </tr>
-</tfoot>
+
 </table>
 </div>
 </div>
