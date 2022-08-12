@@ -176,10 +176,13 @@ if(isset($_GET['id']))
   where tr.prescription_id= $prescription_id";
   $result = mysqli_query($conn, $sql);
   
-  if(mysqli_num_rows($result) > 0) {
-    while($row = mysqli_fetch_array($result)){
-      echo "<tr>
-
+  if(mysqli_num_rows($result)> 0) {
+    while($row = mysqli_fetch_array($result))
+    
+   
+    {
+       echo "<tr>
+     
       <td>&nbsp;$row[doctorname]</td>
      <td>&nbsp;$row[patient]</td>
       <td>&nbsp;$row[prescriptiondate]</td>
@@ -342,8 +345,10 @@ if(isset($_GET['id']))
       }
     echo "</tr>";
     $gtotal = $gtotal+($rs['cost'] * $rs['unit']);
+   
     }
     ?>
+   
         <tr>
           <th colspan="4" align="right">Grand Total </th>
       <th align="right">TK.<?php echo $gtotal; ?></th>

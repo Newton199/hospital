@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2022 at 11:15 AM
+-- Generation Time: Aug 12, 2022 at 06:07 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.27
 
@@ -82,9 +82,11 @@ INSERT INTO `appointment` (`appointmentid`, `appointmenttype`, `patientid`, `roo
 (1, '', 1, 0, 1, '2020-05-25', '12:00:00', 1, 'Approved', 'Reason of appointment', 0),
 (2, '', 1, 0, 2, '2020-05-27', '10:00:00', 1, 'Approved', 'reason of appointment', 0),
 (3, '', 1, 0, 1, '2020-05-26', '11:11:00', 1, 'Approved', 'reason', 0),
-(4, '', 1, 0, 2, '2020-05-29', '15:00:00', 1, 'Active', 'reason of appointment', 0),
+(4, '', 1, 0, 2, '2020-05-29', '15:00:00', 1, 'Approved', 'reason of appointment', 0),
 (5, '', 2, 0, 1, '2022-01-19', '21:19:00', 3, 'Approved', 'hhh', 0),
-(6, '', 2, 0, 2, '2022-02-24', '09:35:00', 2, 'Approved', 'jj', 0);
+(6, '', 2, 0, 2, '2022-02-24', '09:35:00', 2, 'Approved', 'jj', 0),
+(7, '', 2, 0, 1, '2022-08-09', '08:00:00', 3, 'Approved', 'Tauko futyo', 0),
+(8, '', 3, 0, 3, '2022-08-11', '11:55:00', 2, 'Approved', 'tauko', 0);
 
 -- --------------------------------------------------------
 
@@ -141,7 +143,8 @@ CREATE TABLE `department` (
 
 INSERT INTO `department` (`departmentid`, `departmentname`, `description`, `status`, `delete_status`) VALUES
 (1, 'ICU department', 'ICU department for people with serious illness', 'Active', 0),
-(2, 'Neurology department', 'neurology department for treating diseases of nervous system', 'Active', 0);
+(2, 'Neurology department', 'neurology department for treating diseases of nervous system', 'Active', 0),
+(3, 'Orthopedic', 'spine , truma surgery', 'Active', 0);
 
 -- --------------------------------------------------------
 
@@ -243,7 +246,8 @@ CREATE TABLE `medicine` (
 --
 
 INSERT INTO `medicine` (`medicineid`, `medicinename`, `medicinecost`, `description`, `status`, `delete_status`) VALUES
-(1, 'Paracetamol', 10.00, 'Medicine description here', 'Active', 0);
+(1, 'Paracetamol', 10.00, 'Medicine description here', 'Active', 0),
+(2, 'synex', 25.00, 'fever', 'Active', 0);
 
 -- --------------------------------------------------------
 
@@ -299,7 +303,8 @@ CREATE TABLE `patient` (
 
 INSERT INTO `patient` (`patientid`, `patientname`, `admissiondate`, `admissiontime`, `address`, `mobileno`, `city`, `pincode`, `loginid`, `password`, `bloodgroup`, `gender`, `dob`, `status`, `delete_status`) VALUES
 (1, 'Atul Petkar', '2020-05-25', '11:00:00', 'nashik, maharashtra', '9423979339', 'nashik', '1234', 'atul@gmail.com', 'bbcff4db4d8057800d59a68224efd87e545fa1512dfc3ef68298283fbb3b6358', 'B+', 'Male', '1995-07-25', 'Active', 0),
-(2, 'nischal', '2022-01-07', '02:22:00', 'bafal', '1234567890', 'ktm', '461', 'nischal@gmail.com', '80dc9686bc003c4159f8f47a6502cbef99280c30349ce321b13651d922c2c735', 'B+', 'Male', '1999-04-08', 'Active', 0);
+(2, 'nischal', '2022-01-07', '02:22:00', 'bafal', '1234567890', 'ktm', '461', 'nischal@gmail.com', '80dc9686bc003c4159f8f47a6502cbef99280c30349ce321b13651d922c2c735', 'B+', 'Male', '1999-04-08', 'Active', 0),
+(3, 'manu', '2022-08-11', '11:54:00', 'bafal', '1234567890', 'ktm', '461', '4', '80dc9686bc003c4159f8f47a6502cbef99280c30349ce321b13651d922c2c735', 'B+', 'Male', '2017-06-11', 'Active', 0);
 
 -- --------------------------------------------------------
 
@@ -335,7 +340,7 @@ INSERT INTO `payment` (`paymentid`, `patientid`, `appointmentid`, `paiddate`, `p
 --
 
 CREATE TABLE `prescription` (
-  `prescriptionid` int(10) NOT NULL,
+  `prescription_id` int(10) NOT NULL,
   `treatment_records_id` int(10) NOT NULL,
   `doctorid` int(10) NOT NULL,
   `patientid` int(10) NOT NULL,
@@ -345,6 +350,17 @@ CREATE TABLE `prescription` (
   `status` varchar(10) NOT NULL,
   `appointmentid` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `prescription`
+--
+
+INSERT INTO `prescription` (`prescription_id`, `treatment_records_id`, `doctorid`, `patientid`, `delivery_type`, `delivery_id`, `prescriptiondate`, `status`, `appointmentid`) VALUES
+(3, 1, 1, 1, 'aSDD', 1, '0000-00-00', 'Active', 1),
+(4, 2, 2, 2, 'aalu', 2, '0000-00-00', 'Active', 7),
+(5, 4, 3, 2, 'hh', 4, '0000-00-00', 'Active', 4),
+(7, 5, 2, 3, 'jj', 5, '0000-00-00', 'Active', 9),
+(8, 3, 2, 3, 'ggg', 8, '0000-00-00', 'Active', 9);
 
 -- --------------------------------------------------------
 
@@ -668,7 +684,13 @@ CREATE TABLE `treatment` (
 --
 
 INSERT INTO `treatment` (`treatmentid`, `treatmenttype`, `treatment_cost`, `note`, `status`, `delete_status`) VALUES
-(1, 'Blood Test', '200.00', 'Treatment note here', 'Active', 0);
+(1, 'Blood Test', '200.00', 'Treatment note here', 'Active', 0),
+(2, 'ddd', '0.00', 'ff', 'Active', 0),
+(3, 'n bn', '5000.00', '55', 'Active', 0),
+(4, 'Hawa', '50.00', 'Chup fuccha', 'Active', 0),
+(5, 'paracemata', '2500.00', 'tauko   ', 'Active', 0),
+(6, 'tauko futyo', '2500.00', 'tauko', 'Active', 0),
+(7, 'tauko ', '2500.00', 'hawa', 'Active', 0);
 
 -- --------------------------------------------------------
 
@@ -678,16 +700,37 @@ INSERT INTO `treatment` (`treatmentid`, `treatmenttype`, `treatment_cost`, `note
 
 CREATE TABLE `treatment_records` (
   `treatment_records_id` int(10) NOT NULL,
-  `treatmentid` int(10) NOT NULL,
   `appointmentid` int(10) NOT NULL,
+  `treatmentid` int(12) NOT NULL,
   `patientid` int(10) NOT NULL,
   `doctorid` int(10) NOT NULL,
   `treatment_description` text NOT NULL,
-  `uploads` varchar(100) NOT NULL,
   `treatment_date` date NOT NULL,
   `treatment_time` time NOT NULL,
   `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `treatment_records`
+--
+
+INSERT INTO `treatment_records` (`treatment_records_id`, `appointmentid`, `treatmentid`, `patientid`, `doctorid`, `treatment_description`, `treatment_date`, `treatment_time`, `status`) VALUES
+(1, 11, 0, 1, 101, 'avsvvs', '2022-08-07', '27:11:42', 'active'),
+(7, 7, 0, 2, 0, '', '2022-08-10', '22:18:00', 'Active'),
+(9, 1, 0, 2, 3, '', '2022-08-10', '22:36:00', 'Active'),
+(10, 11, 0, 2, 3, '', '2022-08-10', '23:26:00', 'Active'),
+(11, 1, 0, 2, 3, '', '2022-08-10', '22:36:00', 'Active'),
+(12, 1, 0, 2, 3, '', '2022-08-10', '22:36:00', 'Active'),
+(13, 1, 0, 2, 3, '', '2022-08-10', '22:36:00', 'Active'),
+(14, 1, 0, 2, 3, '', '2022-08-10', '12:36:00', 'Active'),
+(15, 8, 0, 3, 2, 'lorem', '2022-08-11', '11:57:00', 'Active'),
+(16, 8, 0, 3, 3, '', '2022-08-11', '13:15:00', 'Active'),
+(17, 8, 0, 3, 0, '', '2022-08-11', '13:15:00', 'Active'),
+(18, 8, 0, 3, 3, '', '2022-08-11', '15:15:00', 'Active'),
+(19, 8, 0, 3, 2, 'ggg', '2022-08-11', '13:29:00', 'Active'),
+(20, 8, 0, 3, 2, 'llll', '2022-08-11', '13:36:00', 'Active'),
+(21, 8, 1, 3, 2, 'ddd', '2022-08-11', '13:36:00', 'Active'),
+(22, 1, 1, 1, 1, 'tauko', '2022-08-11', '14:25:00', 'Active');
 
 -- --------------------------------------------------------
 
@@ -783,6 +826,20 @@ ALTER TABLE `payment`
   ADD PRIMARY KEY (`paymentid`);
 
 --
+-- Indexes for table `prescription`
+--
+ALTER TABLE `prescription`
+  ADD PRIMARY KEY (`prescription_id`),
+  ADD UNIQUE KEY `treatment_records_id` (`treatment_records_id`);
+
+--
+-- Indexes for table `prescription_records`
+--
+ALTER TABLE `prescription_records`
+  ADD PRIMARY KEY (`prescription_record_id`),
+  ADD UNIQUE KEY `prescription_id` (`prescription_id`);
+
+--
 -- Indexes for table `tbl_email_config`
 --
 ALTER TABLE `tbl_email_config`
@@ -819,6 +876,12 @@ ALTER TABLE `treatment`
   ADD PRIMARY KEY (`treatmentid`);
 
 --
+-- Indexes for table `treatment_records`
+--
+ALTER TABLE `treatment_records`
+  ADD PRIMARY KEY (`treatment_records_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -832,13 +895,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `appointmentid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `appointmentid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `departmentid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `departmentid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `doctor`
@@ -862,13 +925,19 @@ ALTER TABLE `manage_website`
 -- AUTO_INCREMENT for table `medicine`
 --
 ALTER TABLE `medicine`
-  MODIFY `medicineid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `medicineid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `patientid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `patientid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `prescription`
+--
+ALTER TABLE `prescription`
+  MODIFY `prescription_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_email_config`
@@ -904,7 +973,13 @@ ALTER TABLE `tbl_sms_config`
 -- AUTO_INCREMENT for table `treatment`
 --
 ALTER TABLE `treatment`
-  MODIFY `treatmentid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `treatmentid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `treatment_records`
+--
+ALTER TABLE `treatment_records`
+  MODIFY `treatment_records_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
