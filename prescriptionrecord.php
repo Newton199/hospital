@@ -163,35 +163,35 @@ if(isset($_GET['id']))
 </tr>
 </thead>
 <tbody>
+
+
+
 <?php
-    
-    if(isset($_GET['prescription_id'])){
-      $med_idey=$_GET['prescription_id'];
-      $sql ="SELECT * FROM prescription WHERE prescription_id  = '$med_idey'";
-    $qsql = mysqli_query($conn,$sql);
-    while($rs = mysqli_fetch_array($qsql))
-    {
-      $patientid = $res['patientid'];
-      $sqlpatient = "SELECT * FROM patient WHERE patientid='$patientid'";
-      $qsqlpatient = mysqli_query($conn,$sqlpatient);
-      $rspatient = mysqli_fetch_array($qsqlpatient);
-      
-      $doctorid = $_GET['doctorid'];
-    $sqldoctor = "SELECT * FROM doctor WHERE doctorid=' $doctorid '";
-      $qsqldoctor = mysqli_query($conn,$sqldoctor);
-      $rsdoctor = mysqli_fetch_array($qsqldoctor);
-      
-        echo "<tr>
-          <td>&nbsp;$rsdoctor[doctorname]</td>
-          <td>&nbsp;$rspatient[patientname]</td>
-       <td>&nbsp;$rs[prescriptiondate]</td>
-    <td>&nbsp;$rs[status]</td>
-    
-        </tr>";
+  
+  $prescription_id = $_GET['prescription_id'];
+  $sql ="SELECT * FROM `prescription ` tr
+  join prescription pr on pr.prescription_id = tr.prescription_id 
+  left join doctor d on d.doctorid = tr.doctorid
+  left join patient p on p.patient = tr.patientid
+  where tr.prescription_id= $prescription_id";
+  $result = mysqli_query($conn, $sql);
+  
+  if(mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_array($result)){
+      echo "<tr>
+
+      <td>&nbsp;$row[doctorname]</td>
+     <td>&nbsp;$row[patient]</td>
+      <td>&nbsp;$row[prescriptiondate]</td>
+    <td>&nbsp;$row[status]</td>
+    ";  
+
+     echo " </tr>";
     }
-    }
+  
     
-    ?>
+     
+  } ?>
 </tbody>
 
 </table>

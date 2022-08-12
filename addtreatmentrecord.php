@@ -8,7 +8,7 @@ if(isset($_POST['btn_submit']))
     if(isset($_GET['editid']))
     {
         $patientId = $_POST['patientid'];
-        $sql ="UPDATE treatment_records SET appointmentid='$_POST[appointmentid]',
+        $sql ="UPDATE treatment_records SET treatmentid='$_POST[treatmentid]', appointmentid='$_POST[appointmentid]',
         patientid='$_POST[patientid]',doctorid='$_POST[doctorid]',treatment_discription='$_POST[treatment_discription]',treatment_date='$_POST[treatment_date]',treatment_time='$_POST[treatment_time]',status='$_POST[status]' WHERE treatmentid='$_GET[editid]'";
         if($qsql = mysqli_query($conn,$sql))
         {
@@ -38,9 +38,12 @@ if(isset($_POST['btn_submit']))
     else
     {
         $patientId = $_POST['patientid'];
-        $sql ="INSERT INTO treatment_records(appointmentid,patientid,doctorid,treatment_description,
-        treatment_date, treatment_time,status) values('$_POST[appointmentid]','$_POST[patientid]','$_POST[doctorid]',
-        '$_POST[treatment_description]','$_POST[treatment_date]','$_POST[treatment_time]',
+        $treatment_description = $_POST['treatment_description'];
+    
+    
+        $sql ="INSERT INTO treatment_records( treatmentid, appointmentid,patientid,doctorid,treatment_description,
+        treatment_date, treatment_time,status) values('$_POST[treatmentid]','$_POST[appointmentid]','$_POST[patientid]','$_POST[doctorid]',
+        '$treatment_description','$_POST[treatment_date]','$_POST[treatment_time]',
         '$_POST[status]')";
         if($qsql = mysqli_query($conn,$sql))
         {
@@ -127,7 +130,7 @@ if(isset($_GET['editid']))
         <label class="col-sm-2 col-form-label">Appointment ID</label>
         <div class="col-sm-8">
             <input type="text" class="form-control" name="appointmentid" id="appointmentid"
-                                    value="<?php if(isset($_GET['editid'])) { echo $rsedit['appointmentid']; } ?>">
+                                    value="<?php echo $_GET['appointmentid'];  ?>">
             <span class="messages"></span>
         </div>
     </div>
@@ -137,7 +140,7 @@ if(isset($_GET['editid']))
         <label class="col-sm-2 col-form-label">Patient ID</label>
         <div class="col-sm-8">
             <input type="text" class="form-control" name="patientid" id="patientid"
-                                    value="<?php if(isset($_GET['editid'])) { echo $rsedit['patientid']; } ?>">
+                                    value="<?php  echo $_GET['patientid']; ?>">
             <span class="messages"></span>
         </div>
     </div>
@@ -145,15 +148,23 @@ if(isset($_GET['editid']))
         <label class="col-sm-2 col-form-label">Doctor ID</label>
         <div class="col-sm-8">
             <input type="text" class="form-control" name="doctorid" id="doctorid"
-                                    value="<?php if(isset($_GET['editid'])) { echo $rsedit['doctorid']; } ?>">
+                                    value="<?php  echo $_GET['doctorid'];?>">
+            <span class="messages"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Treatment  ID</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" name="treatmentid" id="treatmentid"
+                                    value="">
             <span class="messages"></span>
         </div>
     </div>
 <div class="form-group row">
         <label class="col-sm-2 col-form-label">Treatment Description</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" name="treatment_discription" id="treatment_discription"
-                                    value="<?php if(isset($_GET['editid'])) { echo $rsedit['treatment_discription']; } ?>">
+            <input type="text" class="form-control" name="treatment_description" id="treatment_description"
+                                    value="">
             <span class="messages"></span>
         </div>
     </div>

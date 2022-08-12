@@ -145,6 +145,8 @@ if(isset($_GET['delid']))
 <?php if ($rs) { ?>
 <tbody >  
   <?php 
+
+  
     echo "<tr>
     <td>&nbsp;$rsdoctor[doctorname]</td>
     <td>&nbsp;$rspatient[patientname]</td>
@@ -177,22 +179,37 @@ if(isset($_GET['delid']))
   </tr>
 
 </thead>
-<tbody>  
-  <?php
-    $sqlprescription_records ="SELECT * FROM prescription_records LEFT JOIN medicine ON prescription_records.medicine_name=medicine.medicineid WHERE prescription_records.prescription_id='$rs[0]'";
-    $qsqlprescription_records = mysqli_query($conn,$sqlprescription_records);
-    while($rsprescription_records = mysqli_fetch_array($qsqlprescription_records))
-    {
-      echo "<tr>
-      <td>&nbsp;$rsprescription_records[medicinename]</td>
-      <td>&nbsp;$rsprescription_records[cost]</td>
-      <td>&nbsp;$rsprescription_records[unit]</td>
-      <td>&nbsp;$rsprescription_records[dosage]</td>
 
-      </tr>";
-    }
-  ?>           
-</tbody>
+<tbody>
+  <?php
+  
+    $prescription_id = $_GET['prescription_id'];
+    $sql ="SELECT * FROM `prescription_records ` tr
+    join prescription pr on pr.prescriptionid = tr.prescriptionid 
+    left join medicine m on m.medicineid = tr.medicineid 
+    where tr.prescription_id= $prescription_id";
+    $result = mysqli_query($conn, $sql);
+    
+    if(mysqli_num_rows($result) > 0) {
+      while($row = mysqli_fetch_array($result)){
+        echo "<tr>
+
+        <td>&nbsp;$row[medicinename]</td>
+       <td>&nbsp;$row[cost]</td>
+        <td>&nbsp;$row[unit]</td>
+      <td>&nbsp;$row[dosage]</td>
+      ";  
+  
+       echo " </tr>";
+      }
+    
+      
+       
+    } ?>
+    </tbody>
+    
+
+
 <tfoot>
   <tr>
     <th>Medicine</th>

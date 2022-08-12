@@ -125,7 +125,7 @@ if(isset($_GET['delid']))
           {
             echo "<td>&nbsp;
             <a href='treatment.php?editid=$rs[treatmentid]' class='btn btn-primary'>Edit</a> 
-            <a href='view-treatment.php?delid=$rs[treatment_record_id]' class='btn btn-danger'>Delete</a> </td>";
+            <a href='view-treatment.php?delid=$rs[treatmentid]' class='btn btn-danger'>Delete</a> </td>";
           }
           echo "</tr>";
         }

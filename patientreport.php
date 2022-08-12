@@ -278,13 +278,10 @@ if (isset($_GET['id'])) { ?>
           </td><td>&nbsp;" . date("d-m-Y", strtotime($rs['treatment_date'])) . "  &nbsp;" . date("h:i A", strtotime($rs['treatment_time'])) . "</td>
           <td>&nbsp;$rsdoc[doctorname]</td>
           <td>&nbsp;$rs[treatment_description]";
-                            if (file_exists("treatmentfiles/$rs[uploads]")) {
-                              if ($rs['uploads'] != "") {
-                                echo "<br><a href='treatmentfiles/$rs[uploads]'>Download</a>";
-                              }
-                            }
+                          
+                           
                             echo "</td>";
-                            echo "<td>???$rs[treatment_cost]</td></tr>";
+                            echo "<td>RS $rs[treatment_cost]</td></tr>";
                           }
                           ?>
                                                 </table>

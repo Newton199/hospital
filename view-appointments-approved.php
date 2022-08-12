@@ -151,6 +151,12 @@ if(isset($_GET['id']))
           $qsqldept = mysqli_query($conn,$sqldept);
           $rsdept = mysqli_fetch_array($qsqldept);
 
+          $sqltre = "SELECT * FROM treatment_records WHERE patientid='$rs[patientid]'";
+          $qsqltre = mysqli_query($conn,$sqltre);
+          $rsqltre = mysqli_fetch_array($qsqltre);
+
+        
+
           $sqldoc= "SELECT * FROM doctor WHERE doctorid='$rs[doctorid]'";
           $qsqldoc = mysqli_query($conn,$sqldoc);
           $rsdoc = mysqli_fetch_array($qsqldoc);
@@ -159,6 +165,7 @@ if(isset($_GET['id']))
           <td>&nbsp;$rspat[patientname]<br>&nbsp;$rspat[mobileno]</td>     
           <td>&nbsp;" . date("d-M-Y",strtotime($rs['appointmentdate'])) . " &nbsp; " . date("H:i A",strtotime($rs['appointmenttime'])) . "</td> 
           <td>&nbsp;$rsdept[departmentname]</td>
+          
           <td>&nbsp;$rsdoc[doctorname]</td>
           <td>&nbsp;$rs[app_reason]</td>
           <td>&nbsp;$rs[status]</td>
@@ -175,8 +182,16 @@ if(isset($_GET['id']))
           {
             echo "<a href='patientreport.php?patientid=$rs[patientid]&appointmentid=$rs[appointmentid]' class='btn btn-xs btn-primary'>View Report</a>";
           }
-          echo "<a href='treatment.php?patientid=$rs[patientid]&appointmentid=$rs[appointmentid]' class='btn btn-xs btn-primary'>Treatment</a>";
+          echo "<a href='addtreatmentrecord.php?patientid=$rs[patientid]&appointmentid=$rs[appointmentid]
+          &doctorid=$rsdoc[doctorid]' class='btn btn-xs btn-primary'>Treatment</a>";
+           
+
+          echo "<a href='prescription.php?patientid=$rs[patientid]&appointmentid=$rs[appointmentid]&doctorid=$rsdoc[doctorid]&treatment_records_id=$rsqltre[treatment_records_id]' class='btn btn-xs btn-primary'>Add Prescription</a>";
+          
           }
+          
+         
+
 
           echo "</td></tr>";
         
@@ -184,6 +199,7 @@ if(isset($_GET['id']))
 </tbody>
 <tfoot>
 <tr>
+  
     <th>Patient detail</th>
     <th>Appointment Date &  Time</th>
     <th>Department</th>

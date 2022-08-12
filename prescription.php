@@ -22,14 +22,14 @@
         </h3>
         <p>prescription record updated successfully</p>
         <p>
-            <<a href="index.php"><button class="button button--success" data-for="js_success-popup"></button></a>
-                <?php echo "<script>setTimeout(\"location.href = 'view-presciption.php';\",1500);</script>"; ?>
+            <!-- <<a href="index.php"><button class="button button--success" data-for="js_success-popup"></button></a>
+            <?php echo "<script>setTimeout(\"location.href = 'redirectprescription.php';\",1500);</script>"; ?>
         </p>
     </div>
 </div> -->
 <?php
             
-            header("Location: view-presciption.php");
+            header("Location: redirectprescription.php");
         
         }else
         {
@@ -41,7 +41,8 @@
         if(isset($_POST['submit'])){
         
         $patientid = $_POST['patientid'];
-        $treamentrecordid = $_POST['treatment_record_id'];
+        $treamentrecordid = $_POST['treatment_records_id'];
+        
         $appointmentid = $_POST['appointmentid'];
         $doctorid = $_POST['doctorid'];
         $presciptiondate = $_POST['prescriptiondate'];
@@ -75,8 +76,9 @@
         </h3>
         <p>Prescription record inserted successfully.</p>
         <p>
-            <!--  <a href="index.php"><button class="button button--success" data-for="js_success-popup"></button></a> -->
-            <?php echo "<script>setTimeout(\"location.href = 'view-prescription-record.php';\",1500);</>"; ?>
+              <!-- <a href="index.php"><button class="button button--success" data-for="js_success-popup"></button></a>  -->
+              <?php echo "<script>setTimeout(\"location.href = 'redirectprescription.php';\",1500);</script>"; ?>
+
         </p>
     </div>
 </div>
@@ -86,8 +88,8 @@
         else
         {
             
-            var_dump(mysqli_error($conn));
-            die;
+            // var_dump(mysqli_error($conn));
+            // die;
         }
     }
     }
@@ -133,7 +135,7 @@ if(isset($_GET['editid']))
                         </div>
                     </div>
                 </div>
-
+             
 
                 <div class="page-body">
                     <div class="row">
@@ -148,11 +150,11 @@ if(isset($_GET['editid']))
                                     <form id="main" method="post" action="" enctype="multipart/form-data">
 
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Treatment Record_ID</label>
+                                            <label class="col-sm-2 col-form-label">Treatment Records_ID</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="treatment_record_id"
-                                                    id="treatment_record_id"
-                                                    value="<?php if(isset($_GET['editid'])) { echo $rsedit['treatment_record_id']; } ?>">
+                                                <input type="text" class="form-control" name="treatment_records_id"
+                                                    id="treatment_records_id"
+                                                    value="<?php echo $_GET['treatment_records_id']; ?>" readonly>
                                                 <span class="messages"></span>
                                             </div>
                                         </div>
@@ -161,7 +163,7 @@ if(isset($_GET['editid']))
                                             <label class="col-sm-2 col-form-label">Doctor_ID</label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="doctorid" id="doctorid"
-                                                    value="<?php if(isset($_GET['editid'])) { echo $rsedit['doctorid']; } ?>">
+                                                    value="<?php echo $_GET['doctorid']; ?>" readonly>
                                                 <span class="messages"></span>
                                             </div>
                                         </div>
@@ -172,7 +174,7 @@ if(isset($_GET['editid']))
                                             <label class="col-sm-2 col-form-label">Patient ID</label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="patientid" id="patientid"
-                                                    value="<?php if(isset($_GET['editid'])) { echo $rsedit['patientid']; } ?>">
+                                                    value="<?php echo $_GET['patientid']; ?>" readonly>
                                                 <span class="messages"></span>
                                             </div>
                                         </div>
@@ -228,7 +230,7 @@ if(isset($_GET['editid']))
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="appointmentid"
                                                     id="appointmentid"
-                                                    value="<?php if(isset($_GET['editid'])) { echo $rsedit['appointmentid']; } ?>">
+                                                    value="<?php echo $_GET['appointmentid'];?>" readonly>
                                                 <span class="messages"></span>
                                             </div>
                                         </div>
