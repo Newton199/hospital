@@ -169,7 +169,7 @@ if(isset($_GET['id']))
 <?php
   
   $prescription_id = $_GET['prescription_id'];
-  $sql ="SELECT * FROM `prescription ` tr
+  $sql ="SELECT * FROM `prescription` tr
   join prescription pr on pr.prescription_id = tr.prescription_id 
   left join doctor d on d.doctorid = tr.doctorid
   left join patient p on p.patient = tr.patientid

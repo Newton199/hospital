@@ -3,7 +3,7 @@
 <?php include('header.php');?>
 <?php include('sidebar.php');?>
 <?php include('connect.php');
-
+if(isset($_POST['btn_submit'])){
 
     if(isset($_GET['editid']))
     {
@@ -22,11 +22,11 @@
         </h3>
         <p>prescription record updated successfully</p>
         <p>
-            <!-- <<a href="index.php"><button class="button button--success" data-for="js_success-popup"></button></a>
+             <<a href="index.php"><button class="button button--success" data-for="js_success-popup"></button></a>
             <?php echo "<script>setTimeout(\"location.href = 'redirectprescription.php';\",1500);</script>"; ?>
         </p>
     </div>
-</div> -->
+</div> 
 <?php
             
             header("Location: redirectprescription.php");
@@ -38,7 +38,7 @@
     }
     else
     {
-        if(isset($_POST['submit'])){
+        
         
         $patientid = $_POST['patientid'];
         $treamentrecordid = $_POST['treatment_records_id'];
@@ -76,7 +76,7 @@
         </h3>
         <p>Prescription record inserted successfully.</p>
         <p>
-              <!-- <a href="index.php"><button class="button button--success" data-for="js_success-popup"></button></a>  -->
+              <a href="index.php"><button class="button button--success" data-for="js_success-popup"></button></a> 
               <?php echo "<script>setTimeout(\"location.href = 'redirectprescription.php';\",1500);</script>"; ?>
 
         </p>
@@ -85,12 +85,7 @@
 <?php
              
         }
-        else
-        {
-            
-            // var_dump(mysqli_error($conn));
-            // die;
-        }
+        
     }
     }
 
@@ -147,7 +142,7 @@ if(isset($_GET['editid']))
 <span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span> -->
                                 </div>
                                 <div class="card-block">
-                                    <form id="main" method="post" action="" enctype="multipart/form-data">
+                                    <form id="main" method="post" action="redirectprescription.php" enctype="multipart/form-data">
 
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Treatment Records_ID</label>
@@ -238,7 +233,7 @@ if(isset($_GET['editid']))
                                         <div class="form-group row">
                                             <label class="col-sm-2"></label>
                                             <div class="col-sm-10">
-                                                <button type="submit" name="submit"
+                                                <button type="submit" name="btn_submit"
                                                     class="btn btn-primary m-b-0">Submit</button>
                                             </div>
                                         </div>
